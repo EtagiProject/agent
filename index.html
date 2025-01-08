@@ -1,13 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Google Drive Redirect</title>
-  <!-- Автоматическое перенаправление на Google Диск -->
-  <meta http-equiv="refresh" content="0; url=https://drive.google.com/drive/folders/1X4eDl6BzIkLZCAKfmzIp6YSGPEUcUkqH">
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    function initClient() {
+      gapi.load('client:auth2', async () => {
+        await gapi.client.init({
+          apiKey: 'AIzaSyCbkNvxP39IbvNsGx3xmVc-Q01a6WHJ7kg',
+          clientId: '352319671840-1v60k44235qlh9lib54qcsl1709dk3ig.apps.googleusercontent.com',
+          scope: 'https://www.googleapis.com/auth/drive.readonly',
+          discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest']
+        });
+
+        const authInstance = gapi.auth2.getAuthInstance();
+        if (!authInstance.isSignedIn.get()) {
+          await authInstance.signIn();  // Авторизация через общий аккаунт
+        }
+
+        // Перенаправление на Google Диск
+        window.location.href = 'https://drive.google.com/drive/folders/1X4eDl6BcUkqH';
+      });
+    }
+
+    initClient();
+  </script>
 </head>
 <body>
-  <p>Вы перенаправляетесь в Google Диск. Если это не произошло автоматически, <a href="https://drive.google.com/drive/folders/1X4eDl6BzIkLZCAKfmzIp6YSGPEUcUkqH">нажмите здесь</a>.</p>
+  <p>Перенаправление...</p>
 </body>
 </html>
